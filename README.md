@@ -11,6 +11,7 @@
 8. Настроить мониторинг инфраструктуры с помощью стека: Prometheus, Alert Manager и Grafana.
 
 Этапы выполнения:
+
 ***1. Регистрация доменного имени***
 
 Подойдет любое доменное имя на ваш выбор в любой доменной зоне. ПРИМЕЧАНИЕ: Далее в качестве примера используется 
@@ -28,6 +29,7 @@
 Вы зарезистрировали домен и можете им управлять (редактировать dns записи в рамках этого домена).
 
 ***Ответ***
+
 Зарегистрировано доменное имя: w00ps.ru в регистраторе reg.ru
 ![](reg.jpg)
 
@@ -80,6 +82,615 @@
 - providers.tf - Содержит настройки для подключения к провайдеру.
 - variables.tf - ip адрес.
 ![](YC.png)
+
+<details>
+
+<summary>Terraform</summary>
+[k55 terraform]# terraform apply
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # yandex_compute_instance.app will be created
+  + resource "yandex_compute_instance" "app" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = "app.w00ps.ru"
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                #cloud-config
+                users:
+                  - name: k55
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                    ssh_authorized_keys:
+                      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDudxU/AQ7WusOm0FOQDGYXDph3Pw7xYfxCaVC78USouj18Uacd6TV7wMX0Tnhh4dssPWzoKgEF3hYrRNbGAdi5c4JD/qFKQavcnyBJyRmhXDyFDtn1bK3rfw78lW7iIFDxS6VcNk+PaE03shcO3IbOGhS7HKX2hTimyL66ag+wmJA7sllMis+a9bgSkBapciZm6PEOEiwXbqsnCcxO8DUyXSgLYrUmGA9IhaoJPFw8D9E3SzRVSBMRK0qbaZWoziJxRB3cyLX5Oe7Zddt99/rWYJxXIouP12+C68keWFv1eW4PmIV1BtiCrN1hFKWIpEyXb5y7Tic8e/wqRMuPkTBV k55@k55
+            EOT
+        }
+      + name                      = "app"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd8fte6bebi857ortlja"
+              + name        = (known after apply)
+              + size        = 6
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = false
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + host_affinity_rules = (known after apply)
+          + placement_group_id  = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 100
+          + cores         = 4
+          + memory        = 4
+        }
+
+      + scheduling_policy {
+          + preemptible = (known after apply)
+        }
+    }
+
+  # yandex_compute_instance.db01 will be created
+  + resource "yandex_compute_instance" "db01" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = "db01.w00ps.ru"
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                #cloud-config
+                users:
+                  - name: k55
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                    ssh_authorized_keys:
+                      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDudxU/AQ7WusOm0FOQDGYXDph3Pw7xYfxCaVC78USouj18Uacd6TV7wMX0Tnhh4dssPWzoKgEF3hYrRNbGAdi5c4JD/qFKQavcnyBJyRmhXDyFDtn1bK3rfw78lW7iIFDxS6VcNk+PaE03shcO3IbOGhS7HKX2hTimyL66ag+wmJA7sllMis+a9bgSkBapciZm6PEOEiwXbqsnCcxO8DUyXSgLYrUmGA9IhaoJPFw8D9E3SzRVSBMRK0qbaZWoziJxRB3cyLX5Oe7Zddt99/rWYJxXIouP12+C68keWFv1eW4PmIV1BtiCrN1hFKWIpEyXb5y7Tic8e/wqRMuPkTBV k55@k55
+            EOT
+        }
+      + name                      = "db01"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd8fte6bebi857ortlja"
+              + name        = (known after apply)
+              + size        = 6
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = false
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + host_affinity_rules = (known after apply)
+          + placement_group_id  = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 100
+          + cores         = 4
+          + memory        = 4
+        }
+
+      + scheduling_policy {
+          + preemptible = (known after apply)
+        }
+    }
+
+  # yandex_compute_instance.db02 will be created
+  + resource "yandex_compute_instance" "db02" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = "db02.w00ps.ru"
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                #cloud-config
+                users:
+                  - name: k55
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                    ssh_authorized_keys:
+                      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDudxU/AQ7WusOm0FOQDGYXDph3Pw7xYfxCaVC78USouj18Uacd6TV7wMX0Tnhh4dssPWzoKgEF3hYrRNbGAdi5c4JD/qFKQavcnyBJyRmhXDyFDtn1bK3rfw78lW7iIFDxS6VcNk+PaE03shcO3IbOGhS7HKX2hTimyL66ag+wmJA7sllMis+a9bgSkBapciZm6PEOEiwXbqsnCcxO8DUyXSgLYrUmGA9IhaoJPFw8D9E3SzRVSBMRK0qbaZWoziJxRB3cyLX5Oe7Zddt99/rWYJxXIouP12+C68keWFv1eW4PmIV1BtiCrN1hFKWIpEyXb5y7Tic8e/wqRMuPkTBV k55@k55
+            EOT
+        }
+      + name                      = "db02"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd8fte6bebi857ortlja"
+              + name        = (known after apply)
+              + size        = 6
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = false
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + host_affinity_rules = (known after apply)
+          + placement_group_id  = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 100
+          + cores         = 4
+          + memory        = 4
+        }
+
+      + scheduling_policy {
+          + preemptible = (known after apply)
+        }
+    }
+
+  # yandex_compute_instance.gitlab will be created
+  + resource "yandex_compute_instance" "gitlab" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = "gitlab.w00ps.ru"
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                #cloud-config
+                users:
+                  - name: k55
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                    ssh_authorized_keys:
+                      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDudxU/AQ7WusOm0FOQDGYXDph3Pw7xYfxCaVC78USouj18Uacd6TV7wMX0Tnhh4dssPWzoKgEF3hYrRNbGAdi5c4JD/qFKQavcnyBJyRmhXDyFDtn1bK3rfw78lW7iIFDxS6VcNk+PaE03shcO3IbOGhS7HKX2hTimyL66ag+wmJA7sllMis+a9bgSkBapciZm6PEOEiwXbqsnCcxO8DUyXSgLYrUmGA9IhaoJPFw8D9E3SzRVSBMRK0qbaZWoziJxRB3cyLX5Oe7Zddt99/rWYJxXIouP12+C68keWFv1eW4PmIV1BtiCrN1hFKWIpEyXb5y7Tic8e/wqRMuPkTBV k55@k55
+            EOT
+        }
+      + name                      = "gitlab"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd8fte6bebi857ortlja"
+              + name        = (known after apply)
+              + size        = 30
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = false
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + host_affinity_rules = (known after apply)
+          + placement_group_id  = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 100
+          + cores         = 6
+          + memory        = 6
+        }
+
+      + scheduling_policy {
+          + preemptible = (known after apply)
+        }
+    }
+
+  # yandex_compute_instance.monitoring will be created
+  + resource "yandex_compute_instance" "monitoring" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = "monitoring.w00ps.ru"
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                #cloud-config
+                users:
+                  - name: k55
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                    ssh_authorized_keys:
+                      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDudxU/AQ7WusOm0FOQDGYXDph3Pw7xYfxCaVC78USouj18Uacd6TV7wMX0Tnhh4dssPWzoKgEF3hYrRNbGAdi5c4JD/qFKQavcnyBJyRmhXDyFDtn1bK3rfw78lW7iIFDxS6VcNk+PaE03shcO3IbOGhS7HKX2hTimyL66ag+wmJA7sllMis+a9bgSkBapciZm6PEOEiwXbqsnCcxO8DUyXSgLYrUmGA9IhaoJPFw8D9E3SzRVSBMRK0qbaZWoziJxRB3cyLX5Oe7Zddt99/rWYJxXIouP12+C68keWFv1eW4PmIV1BtiCrN1hFKWIpEyXb5y7Tic8e/wqRMuPkTBV k55@k55
+            EOT
+        }
+      + name                      = "monitoring"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd8fte6bebi857ortlja"
+              + name        = (known after apply)
+              + size        = 6
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = false
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + host_affinity_rules = (known after apply)
+          + placement_group_id  = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 100
+          + cores         = 4
+          + memory        = 4
+        }
+
+      + scheduling_policy {
+          + preemptible = (known after apply)
+        }
+    }
+
+  # yandex_compute_instance.nginx will be created
+  + resource "yandex_compute_instance" "nginx" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = "w00ps.ru"
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                #cloud-config
+                users:
+                  - name: k55
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                    ssh_authorized_keys:
+                      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDudxU/AQ7WusOm0FOQDGYXDph3Pw7xYfxCaVC78USouj18Uacd6TV7wMX0Tnhh4dssPWzoKgEF3hYrRNbGAdi5c4JD/qFKQavcnyBJyRmhXDyFDtn1bK3rfw78lW7iIFDxS6VcNk+PaE03shcO3IbOGhS7HKX2hTimyL66ag+wmJA7sllMis+a9bgSkBapciZm6PEOEiwXbqsnCcxO8DUyXSgLYrUmGA9IhaoJPFw8D9E3SzRVSBMRK0qbaZWoziJxRB3cyLX5Oe7Zddt99/rWYJxXIouP12+C68keWFv1eW4PmIV1BtiCrN1hFKWIpEyXb5y7Tic8e/wqRMuPkTBV k55@k55
+            EOT
+        }
+      + name                      = "nginx"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd8fte6bebi857ortlja"
+              + name        = (known after apply)
+              + size        = 6
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = true
+          + nat_ip_address     = "130.193.37.140"
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + host_affinity_rules = (known after apply)
+          + placement_group_id  = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 100
+          + cores         = 2
+          + memory        = 2
+        }
+
+      + scheduling_policy {
+          + preemptible = (known after apply)
+        }
+    }
+
+  # yandex_compute_instance.runner will be created
+  + resource "yandex_compute_instance" "runner" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = "runner.w00ps.ru"
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                #cloud-config
+                users:
+                  - name: k55
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                    ssh_authorized_keys:
+                      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDudxU/AQ7WusOm0FOQDGYXDph3Pw7xYfxCaVC78USouj18Uacd6TV7wMX0Tnhh4dssPWzoKgEF3hYrRNbGAdi5c4JD/qFKQavcnyBJyRmhXDyFDtn1bK3rfw78lW7iIFDxS6VcNk+PaE03shcO3IbOGhS7HKX2hTimyL66ag+wmJA7sllMis+a9bgSkBapciZm6PEOEiwXbqsnCcxO8DUyXSgLYrUmGA9IhaoJPFw8D9E3SzRVSBMRK0qbaZWoziJxRB3cyLX5Oe7Zddt99/rWYJxXIouP12+C68keWFv1eW4PmIV1BtiCrN1hFKWIpEyXb5y7Tic8e/wqRMuPkTBV k55@k55
+            EOT
+        }
+      + name                      = "runner"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd8fte6bebi857ortlja"
+              + name        = (known after apply)
+              + size        = 6
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = false
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + host_affinity_rules = (known after apply)
+          + placement_group_id  = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 100
+          + cores         = 4
+          + memory        = 4
+        }
+
+      + scheduling_policy {
+          + preemptible = (known after apply)
+        }
+    }
+
+  # yandex_vpc_network.network-1 will be created
+  + resource "yandex_vpc_network" "network-1" {
+      + created_at                = (known after apply)
+      + default_security_group_id = (known after apply)
+      + folder_id                 = (known after apply)
+      + id                        = (known after apply)
+      + labels                    = (known after apply)
+      + name                      = "network1"
+      + subnet_ids                = (known after apply)
+    }
+
+  # yandex_vpc_subnet.subnet-1 will be created
+  + resource "yandex_vpc_subnet" "subnet-1" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "subnet1"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "192.168.1.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-a"
+    }
+
+  # yandex_vpc_subnet.subnet-2 will be created
+  + resource "yandex_vpc_subnet" "subnet-2" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "subnet2"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "192.168.2.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-b"
+    }
+
+Plan: 10 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions in workspace "prod"?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+yandex_vpc_network.network-1: Creating...
+yandex_vpc_network.network-1: Creation complete after 2s [id=enpgv1uhlnu2n7l3fh69]
+yandex_vpc_subnet.subnet-1: Creating...
+yandex_vpc_subnet.subnet-2: Creating...
+yandex_vpc_subnet.subnet-1: Creation complete after 0s [id=e9bvhu1m7rk4gjb61pr6]
+yandex_compute_instance.nginx: Creating...
+yandex_compute_instance.gitlab: Creating...
+yandex_compute_instance.monitoring: Creating...
+yandex_compute_instance.app: Creating...
+yandex_compute_instance.runner: Creating...
+yandex_compute_instance.db02: Creating...
+yandex_compute_instance.db01: Creating...
+yandex_vpc_subnet.subnet-2: Creation complete after 1s [id=e2lis15ultpbfd6fe64j]
+yandex_compute_instance.monitoring: Still creating... [10s elapsed]
+yandex_compute_instance.nginx: Still creating... [10s elapsed]
+yandex_compute_instance.gitlab: Still creating... [10s elapsed]
+yandex_compute_instance.runner: Still creating... [10s elapsed]
+yandex_compute_instance.db01: Still creating... [10s elapsed]
+yandex_compute_instance.db02: Still creating... [10s elapsed]
+yandex_compute_instance.app: Still creating... [10s elapsed]
+yandex_compute_instance.nginx: Still creating... [20s elapsed]
+yandex_compute_instance.monitoring: Still creating... [20s elapsed]
+yandex_compute_instance.gitlab: Still creating... [20s elapsed]
+yandex_compute_instance.runner: Still creating... [20s elapsed]
+yandex_compute_instance.db02: Still creating... [20s elapsed]
+yandex_compute_instance.app: Still creating... [20s elapsed]
+yandex_compute_instance.db01: Still creating... [20s elapsed]
+yandex_compute_instance.monitoring: Creation complete after 25s [id=fhm21kas7i29sa02lv3t]
+yandex_compute_instance.db01: Creation complete after 25s [id=fhmg2psv2kcislk051qr]
+yandex_compute_instance.app: Creation complete after 25s [id=fhmato0d8uoql5sr3oro]
+yandex_compute_instance.runner: Creation complete after 25s [id=fhm99sgq8uehm8kb1c4m]
+yandex_compute_instance.nginx: Creation complete after 25s [id=fhmta0r48qj9i0fr5svi]
+yandex_compute_instance.db02: Creation complete after 28s [id=fhmv39f6rnfpqutf57bj]
+yandex_compute_instance.gitlab: Creation complete after 29s [id=fhm6o992mb5qeiokqtff]
+
+Apply complete! Resources: 10 added, 0 changed, 0 destroyed.
+
+</details>
 
 ***3. Установка Nginx и LetsEncrypt***
 
@@ -208,6 +819,7 @@ w00ps.ru                   : ok=22   changed=20   unreachable=0    failed=0    s
 **Цель:**
 
 Получить отказоустойчивый кластер баз данных MySQL.
+
 **Ожидаемые результаты:**
 
 1. MySQL работает в режиме репликации Master/Slave.
@@ -218,6 +830,7 @@ w00ps.ru                   : ok=22   changed=20   unreachable=0    failed=0    s
 верхнего и нижнего регистров, цифры, а также специальные символы!*
 
 ***Ответ***
+
 Настройки на базу данных находятся в ansible/roles/install_mysql/defaults/main.yml
 ```
 # Databases.
@@ -1336,12 +1949,14 @@ runner.w00ps.ru            : ok=82   changed=19   unreachable=0    failed=0    s
 Добавляем код wordpress (заходим на сервер wp и настраиваем гит)
 
 sudo git init
+
 sudo git config --global --add safe.directory /var/www/wordpress
+
 sudo git remote add origin http://gitlab.w00ps.ru/gitlab-instance-1ce85200/press.git
 
 ![](gitlab1.jpg)
 Для обратной задачи - deploy из GitLab  в app.w00ps.ru была разработана следующая job:
-
+```
 before_script:
   - eval $(ssh-agent -s)
   - echo "$ssh_key" | tr -d '\r' | ssh-add -
@@ -1359,7 +1974,7 @@ deploy-job:
     - ssh -o StrictHostKeyChecking=no k55@app.w00ps.ru sudo chown k55 /var/www/wordpress/ -R
     - rsync -vz -e "ssh -o StrictHostKeyChecking=no" ./* k55@app.w00ps.ru:/var/www/wordpress/
     - ssh -o StrictHostKeyChecking=no k55@app.w00ps.ru sudo chown www-data /var/www/wordpress/ -R
-
+```
 ![](gitlab_pipline.jpg)
 
 ***7. Установка Prometheus, Alert Manager, Node Exporter и Grafana***
@@ -1926,6 +2541,7 @@ https://alertmanager.you.domain (Alert Manager)
 4. Все репозитории рекомендуется хранить на одном из ресурсов (github.com или gitlab.com).
 
 ***Ответ***
+
 https://www.you.domain (WordPress):
 ![](worfpress1.jpg)
 
