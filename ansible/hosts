@@ -1,0 +1,36 @@
+[nginx]
+w00ps.ru  letsencrypt_email=st9966@bk.ru domain_name=w00ps.ru
+
+[mysql]
+db01.w00ps.ru mysql_server_id=1 mysql_replication_role=master
+db02.w00ps.ru mysql_server_id=2 mysql_replication_role=slave
+
+[app]
+app.w00ps.ru
+
+[gitlab]
+gitlab.w00ps.ru
+
+[runner]
+runner.w00ps.ru
+
+[monitoring]
+monitoring.w00ps.ru
+
+[proxy]
+w00ps.ru
+
+[mysql:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q k55@w00ps.ru"'
+
+[app:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q k55@w00ps.ru"'
+
+[monitoring:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q k55@w00ps.ru"'
+
+[gitlab:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q k55@w00ps.ru"'
+
+[runner:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q k55@w00ps.ru"'

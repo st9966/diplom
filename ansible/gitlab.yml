@@ -1,0 +1,16 @@
+- hosts: gitlab 
+  gather_facts: true
+  become:
+    true
+  become_method:
+    sudo
+  become_user:
+    root
+  remote_user:
+    k55
+  roles:
+   - gitlab
+
+  environment:
+     http_proxy: http://w00ps.ru:8118
+     https_proxy: http://w00ps.ru:8118
